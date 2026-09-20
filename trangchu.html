@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ A1K61</title>
+    <title>Trang Chủ Lớp A1K61 - Ngôi Nhà Chung</title>
     <style>
         * {
             margin: 0;
@@ -12,221 +12,295 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        body, html {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+            padding: 40px 20px;
+            overflow-x: hidden;
         }
 
-        .lock-screen {
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.75)), 
-                        url('nen.png') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        #fireworks-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .school-icon {
-            position: absolute;
-            font-size: 2.2rem;
-            opacity: 0.3;
-            animation: floatIcons 6s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @keyframes floatIcons {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(15deg); }
-        }
-
-        .star-sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #ffffff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #38bdf8, 0 0 20px #38bdf8;
-            animation: twinkle 2s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.3); }
-        }
-
-        .title-wrapper {
-            position: relative;
-            transform: translateY(-90px);
-            z-index: 3;
+        /* Header tiêu đề lớp */
+        header {
             text-align: center;
+            margin-bottom: 40px;
         }
 
-        .class-title::before {
-            content: "★ 𝓦𝓮𝓵𝓬𝓸𝓶𝓮 𝓽𝓸 ★";
-            display: block;
-            font-size: 1.1rem;
-            font-weight: 600;
+        header h1 {
+            font-size: 3.8rem;
             color: #38bdf8;
-            letter-spacing: 4px;
-            margin-bottom: 8px;
-            text-transform: lowercase;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-        }
-
-        .class-title {
-            font-size: 6.5vw; 
-            font-weight: 900;
-            color: #ffffff;
             text-transform: uppercase;
-            letter-spacing: 6px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.7), 0 0 35px rgba(56, 189, 248, 0.5);
-            -webkit-text-stroke: 2px rgba(255, 255, 255, 0.9);
-            margin-bottom: 10px;
+            letter-spacing: 4px;
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            margin-bottom: 5px;
+            animation: floatTitle 3s ease-in-out infinite;
         }
 
-        .sub-slogan {
-            color: #cbd5e1;
-            font-size: 1.2rem;
-            letter-spacing: 1.5px;
-            font-weight: 500;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-            margin-top: 5px;
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
-        .btn-enter {
-            display: inline-block;
-            padding: 16px 45px;
+        header p {
             font-size: 1.25rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(135deg, #38bdf8, #818cf8);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50px;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.5);
-            transition: all 0.3s ease;
-            transform: translateY(-20px);
-            z-index: 3;
-            position: relative;
+            color: #f472b6;
+            font-weight: 600;
         }
 
-        .btn-enter:hover {
-            transform: translateY(-25px) scale(1.08);
-            box-shadow: 0 15px 35px rgba(129, 140, 248, 0.8);
-            background: linear-gradient(135deg, #818cf8, #38bdf8);
-            border-color: #fff;
+        /* Phần Giáo Viên Chủ Nhiệm */
+        .teacher-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .teacher-card {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            border: 2px solid #818cf8;
+            border-radius: 20px;
+            padding: 30px 45px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(129, 140, 248, 0.3);
+            max-width: 380px;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .teacher-card:hover {
+            transform: scale(1.03);
+        }
+
+        .teacher-card .avatar {
+            width: 100px;
+            height: 100px;
+            background: #38bdf8;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            border: 4px solid #fff;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        .teacher-card h3 {
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .teacher-card p {
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* Tiêu đề các mục nhỏ */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #f8fafc;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #f43f5e, #38bdf8);
+            border-radius: 2px;
+        }
+
+        /* Lưới phân bổ ban cán sự, tổ trưởng & các nút đặc biệt */
+        .grid-org {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .org-card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border-top: 5px solid #38bdf8;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .org-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .org-card:hover::before {
+            opacity: 1;
+        }
+
+        .org-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3);
+        }
+
+        .org-card .role-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* Avatar tròn để trống chuẩn kích thước cho nút Kỷ Niệm */
+        .org-card .round-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #334155;
+            margin: 0 auto 12px;
+            border: 2px dashed #94a3b8;
+            object-fit: cover;
+        }
+
+        .org-card h4 {
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .org-card .role-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Nút quay lại */
+        .back-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #475569, #1e293b);
+            color: #f8fafc;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
         }
     </style>
 </head>
 <body>
 
-    <div class="lock-screen">
-        <canvas id="fireworks-canvas"></canvas>
+    <div class="container">
+        <!-- Tiêu đề -->
+        <header>
+            <h1>A1K61!!!!!!!!!!!!!!!!</h1>
+            <p>ĐANG CODE THÌ ĐỘT QUỴ</p>
+        </header>
 
-        <div class="school-icon" style="top: 12%; left: 8%; animation-delay: 0s;">📚</div>
-        <div class="school-icon" style="top: 18%; right: 10%; animation-delay: 1s;">✏️</div>
-        <div class="school-icon" style="top: 72%; left: 10%; animation-delay: 2s;">🎒</div>
-        <div class="school-icon" style="top: 78%; right: 12%; animation-delay: 1.5s;">📐</div>
-        <div class="school-icon" style="top: 48%; left: 4%; animation-delay: 2.5s;">📝</div>
-        <div class="school-icon" style="top: 42%; right: 6%; animation-delay: 0.5s;">🎓</div>
-
-        <div class="star-sparkle" style="top: 20%; left: 25%; animation-delay: 0.2s;"></div>
-        <div class="star-sparkle" style="top: 15%; right: 28%; animation-delay: 0.8s;"></div>
-        <div class="star-sparkle" style="top: 55%; left: 20%; animation-delay: 1.2s;"></div>
-        <div class="star-sparkle" style="top: 60%; right: 22%; animation-delay: 0.5s;"></div>
-
-        <div class="title-wrapper">
-            <h1 class="class-title">A1k61</h1>
-            <div class="sub-slogan">TEST thôi mn ạ☺️</div>
+        <!-- Phần Giáo Viên Chủ Nhiệm ngay dưới tiêu đề -->
+        <div class="teacher-section">
+            <div class="teacher-card">
+                <div class="avatar">👩‍🏫</div>
+                <h3>Cô Hà iu dấu(chắc v):))</h3>
+                <p>Giáo Viên Chủ Nhiệm</p>
+            </div>
         </div>
 
-        <a href="trangchu.html" class="btn-enter">bước vô=)))</a>
+        <!-- Ban Cán Sự Lớp -->
+        <h2 class="section-title">Quyền lực tối cao😞</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #f43f5e;">
+                <div class="role-icon">👑</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #f43f5e;">Lớp Trưởng</div>
+            </div>
+            <div class="org-card" style="border-top-color: #38bdf8;">
+                <div class="role-icon">📖</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #38bdf8;">Lớp Phó Học Tập</div>
+            </div>
+            <div class="org-card" style="border-top-color: #34d399;">
+                <div class="role-icon">🧹</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #34d399;">Lớp Phó Lao Động</div>
+            </div>
+        </div>
+
+        <!-- Các Tổ Trưởng -->
+        <h2 class="section-title">Cấp dưới:))</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #facc15;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #facc15;">Tổ Trưởng Tổ 1</div>
+            </div>
+            <div class="org-card" style="border-top-color: #fb7185;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #fb7185;">Tổ Trưởng Tổ 2</div>
+            </div>
+            <div class="org-card" style="border-top-color: #a78bfa;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #a78bfa;">Tổ Trưởng Tổ 3</div>
+            </div>
+            <div class="org-card" style="border-top-color: #38bdf8;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #38bdf8;">Tổ Trưởng Tổ 4</div>
+            </div>
+        </div>
+
+        <!-- Các nút Kỷ niệm, Điểm nhấn, Thành tích -->
+        <h2 class="section-title">Góc Đặc Biệt ✨</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #ec4899;">
+                <div class="round-avatar"></div>
+                <h4>Kỷ Niệm</h4>
+                <div class="role-title" style="color: #ec4899;">Cập nhật sau đi</div>
+            </div>
+            <div class="org-card" style="border-top-color: #eab308;">
+                <div class="role-icon">🔥</div>
+                <h4>Điểm Nhấn</h4>
+                <div class="role-title" style="color: #eab308;">Nói chung là bá khí</div>
+            </div>
+            <div class="org-card" style="border-top-color: #10b981;">
+                <div class="role-icon">🏆</div>
+                <h4>Thành Tích</h4>
+                <div class="role-title" style="color: #10b981;">Toàn người ngầu</div>
+            </div>
+        </div>
+
+        <!-- Nút quay lại màn hình khóa ) -->
+        <a href="CAILOPLON.html" class="back-btn">⬅ Quay lại màn hình mở đầu</a>
     </div>
 
-    <script>
-        const canvas = document.getElementById('fireworks-canvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor(x, y, color) {
-                this.x = x;
-                this.y = y;
-                this.color = color;
-                const angle = Math.random() * Math.PI * 2;
-                const speed = Math.random() * 6 + 2;
-                this.vx = Math.cos(angle) * speed;
-                this.vy = Math.sin(angle) * speed;
-                this.alpha = 1;
-                this.decay = Math.random() * 0.015 + 0.010;
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                this.vy += 0.05;
-                this.alpha -= this.decay;
-            }
-            draw() {
-                ctx.save();
-                ctx.globalAlpha = this.alpha;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            }
-        }
-
-        let particles = [];
-
-        function addFirework() {
-            const x = Math.random() * canvas.width;
-            const y = Math.random() * (canvas.height * 0.5);
-            const colors = ['#38bdf8', '#818cf8', '#f472b6', '#fb7185', '#34d399', '#facc15'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            for (let i = 0; i < 50; i++) {
-                particles.push(new Particle(x, y, color));
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach((p, index) => {
-                p.update();
-                p.draw();
-                if (p.alpha <= 0) {
-                    particles.splice(index, 1);
-                }
-            });
-            requestAnimationFrame(animate);
-        }
-
-        animate();
-        setInterval(addFirework, 900);
-    </script>
 </body>
 </html>
