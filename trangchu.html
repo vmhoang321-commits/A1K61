@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Chủ Lớp A1K61 - Ngôi Nhà Chung</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            line-height: 1.6;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Header tiêu đề lớp */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3.8rem;
+            color: #38bdf8;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 0 25px rgba(56, 189, 248, 0.6);
+            margin-bottom: 5px;
+            animation: floatTitle 3s ease-in-out infinite;
+        }
+
+        @keyframes floatTitle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        header p {
+            font-size: 1.25rem;
+            color: #f472b6;
+            font-weight: 600;
+        }
+
+        /* Phần Giáo Viên Chủ Nhiệm */
+        .teacher-section {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .teacher-card {
+            background: linear-gradient(135deg, #1e1b4b, #311042);
+            border: 2px solid #818cf8;
+            border-radius: 20px;
+            padding: 30px 45px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(129, 140, 248, 0.3);
+            max-width: 380px;
+            width: 100%;
+            transition: transform 0.3s;
+        }
+
+        .teacher-card:hover {
+            transform: scale(1.03);
+        }
+
+        .teacher-card .avatar {
+            width: 100px;
+            height: 100px;
+            background: #38bdf8;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.8rem;
+            border: 4px solid #fff;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.5);
+        }
+
+        .teacher-card h3 {
+            color: #f8fafc;
+            font-size: 1.4rem;
+            margin-bottom: 5px;
+        }
+
+        .teacher-card p {
+            color: #38bdf8;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        /* Tiêu đề các mục nhỏ */
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            color: #f8fafc;
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #f43f5e, #38bdf8);
+            border-radius: 2px;
+        }
+
+        /* Lưới phân bổ ban cán sự, tổ trưởng & các nút đặc biệt */
+        .grid-org {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .org-card {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+            border-top: 5px solid #38bdf8;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .org-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .org-card:hover::before {
+            opacity: 1;
+        }
+
+        .org-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(56, 189, 248, 0.3);
+        }
+
+        .org-card .role-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        /* Avatar tròn để trống chuẩn kích thước cho nút Kỷ Niệm */
+        .org-card .round-avatar {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            background: #334155;
+            margin: 0 auto 12px;
+            border: 2px dashed #94a3b8;
+            object-fit: cover;
+        }
+
+        .org-card h4 {
+            font-size: 1.25rem;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .org-card .role-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Nút quay lại */
+        .back-btn {
+            display: block;
+            width: fit-content;
+            margin: 40px auto 0;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #475569, #1e293b);
+            color: #f8fafc;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Tiêu đề -->
+        <header>
+            <h1>A1K61!!!!!!!!!!!!!!!!</h1>
+            <p>ĐANG CODE THÌ ĐỘT QUỴ</p>
+        </header>
+
+        <!-- Phần Giáo Viên Chủ Nhiệm ngay dưới tiêu đề -->
+        <div class="teacher-section">
+            <div class="teacher-card">
+                <div class="avatar">👩‍🏫</div>
+                <h3>Cô Hà iu dấu(chắc v):))</h3>
+                <p>Giáo Viên Chủ Nhiệm</p>
+            </div>
+        </div>
+
+        <!-- Ban Cán Sự Lớp -->
+        <h2 class="section-title">Quyền lực tối cao😞</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #f43f5e;">
+                <div class="role-icon">👑</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #f43f5e;">Lớp Trưởng</div>
+            </div>
+            <div class="org-card" style="border-top-color: #38bdf8;">
+                <div class="role-icon">📖</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #38bdf8;">Lớp Phó Học Tập</div>
+            </div>
+            <div class="org-card" style="border-top-color: #34d399;">
+                <div class="role-icon">🧹</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #34d399;">Lớp Phó Lao Động</div>
+            </div>
+        </div>
+
+        <!-- Các Tổ Trưởng -->
+        <h2 class="section-title">Cấp dưới:))</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #facc15;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #facc15;">Tổ Trưởng Tổ 1</div>
+            </div>
+            <div class="org-card" style="border-top-color: #fb7185;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #fb7185;">Tổ Trưởng Tổ 2</div>
+            </div>
+            <div class="org-card" style="border-top-color: #a78bfa;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #a78bfa;">Tổ Trưởng Tổ 3</div>
+            </div>
+            <div class="org-card" style="border-top-color: #38bdf8;">
+                <div class="role-icon">⭐</div>
+                <h4>...</h4>
+                <div class="role-title" style="color: #38bdf8;">Tổ Trưởng Tổ 4</div>
+            </div>
+        </div>
+
+        <!-- Các nút Kỷ niệm, Điểm nhấn, Thành tích -->
+        <h2 class="section-title">Góc Đặc Biệt ✨</h2>
+        <div class="grid-org">
+            <div class="org-card" style="border-top-color: #ec4899;">
+                <div class="round-avatar"></div>
+                <h4>Kỷ Niệm</h4>
+                <div class="role-title" style="color: #ec4899;">Cập nhật sau đi</div>
+            </div>
+            <div class="org-card" style="border-top-color: #eab308;">
+                <div class="role-icon">🔥</div>
+                <h4>Điểm Nhấn</h4>
+                <div class="role-title" style="color: #eab308;">Nói chung là bá khí</div>
+            </div>
+            <div class="org-card" style="border-top-color: #10b981;">
+                <div class="role-icon">🏆</div>
+                <h4>Thành Tích</h4>
+                <div class="role-title" style="color: #10b981;">Toàn người ngầu</div>
+            </div>
+        </div>
+
+        <!-- Nút quay lại màn hình khóa ) -->
+        <a href="CAILOPLON.html" class="back-btn">⬅ Quay lại màn hình mở đầu</a>
+    </div>
+
+</body>
+</html>
