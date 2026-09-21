@@ -139,9 +139,9 @@
         </header>
 
         <!-- Form gửi dữ liệu -->
-        <form class="feedback-form" id="feedbackForm" action="https://formspree.io/f/ma_endpoint_cua_ong" method="POST">
+        <form class="feedback-form" id="feedbackForm" action="https://formspree.io/f/mkjgrnbz" method="POST">
             <div class="form-group">
-                <label for="name">Tên đồng chí (hoặc ẩn danh):</label>
+                <label for="name">Tên (hoặc ẩn danh):</label>
                 <input type="text" id="name" name="name" placeholder="Ví dụ: Kẻ bí ẩn..." required>
             </div>
 
@@ -150,7 +150,7 @@
                 <textarea id="message" name="message" placeholder="Nhập nội dung vào đây..." required></textarea>
             </div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">Gửi Ngay 🚀</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Vả vô mặt Dev</button>
             <div id="status-message"></div>
         </form>
 
@@ -167,7 +167,7 @@
             const btn = document.getElementById("submitBtn");
             
             btn.disabled = true;
-            btn.textContent = "Đang gửi...";
+            btn.textContent = "Chờ xíu";
             
             const data = new FormData(event.target);
             
@@ -180,7 +180,7 @@
             }).then(response => {
                 if (response.ok) {
                     status.style.color = "#34d399";
-                    status.textContent = "Gửi thành công! Đã chuyển thẳng đến Gmail của Dev 🎉";
+                    status.textContent = "Thành công!,Dev đã ăn vả";
                     form.reset();
                 } else {
                     response.json().then(data => {
@@ -188,15 +188,15 @@
                         if (Object.hasOwn(data, 'errors')) {
                             status.textContent = data["errors"].map(error => error["message"]).join(", ");
                         } else {
-                            status.textContent = "Oops! Có lỗi xảy ra, thử lại sau nhé.";
+                            status.textContent = "Lỗi...";
                         }
                     })
                 }
                 btn.disabled = false;
-                btn.textContent = "Gửi Ngay 🚀";
+                btn.textContent = "Vả vào mặt Dev";
             }).catch(error => {
                 status.style.color = "#f43f5e";
-                status.textContent = "Lỗi kết nối mạng rồi ông ơi!";
+                status.textContent = "Mạng kém vcl";
                 btn.disabled = false;
                 btn.textContent = "Gửi Ngay 🚀";
             });
