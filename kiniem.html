@@ -44,12 +44,13 @@
             font-weight: 600;
         }
 
-        /* Lưới hiển thị tối ưu, gọn gàng, tự khớp kích thước */
+        /* Lưới hiển thị dạng Masonry/Grid tự động ôm theo nội dung */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 50px;
+            align-items: start;
         }
 
         .gallery-card {
@@ -61,6 +62,7 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             display: flex;
             flex-direction: column;
+            height: fit-content; /* Khung tự điều chỉnh chiều cao vừa khít với ảnh/video */
         }
 
         .gallery-card:hover {
@@ -68,12 +70,11 @@
             box-shadow: 0 12px 25px rgba(56, 189, 248, 0.25);
         }
 
-        /* Ảnh và video full kích cỡ khung, hiển thị trọn vẹn */
+        /* Ảnh và video tự động co giãn chiều cao theo đúng tỉ lệ file gốc */
         .gallery-card img, 
         .gallery-card video {
             width: 100%;
-            height: 240px;
-            object-fit: cover; /* Giữ khung gọn gàng, không bị bóp méo hình */
+            height: auto; 
             display: block;
             background: #000;
         }
@@ -137,7 +138,7 @@
     <script>
         async function loadGallery() {
             try {
-                // Đọc file data.json được sinh ra từ script quét
+                // Đọc file data.json chứa danh sách ảnh/video
                 const response = await fetch('data.json');
                 if (!response.ok) throw new Error('Chưa có dữ liệu');
                 
