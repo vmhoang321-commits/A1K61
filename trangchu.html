@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ Lớp A1K61</title>
+    <title>Trang Chủ Lớp A1K61 - Ngôi Nhà Chung</title>
     <style>
         * {
             margin: 0;
@@ -142,6 +142,8 @@
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            text-decoration: none;
+            display: block;
         }
 
         .org-card::before {
@@ -167,7 +169,7 @@
             margin-bottom: 12px;
         }
 
-        /* Avatar tròn để trống chuẩn kích thước cho nút Kỷ Niệm / Thành viên */
+        /* Avatar tròn để trống chuẩn kích thước cho nút Kỷ Niệm */
         .org-card .round-avatar {
             width: 65px;
             height: 65px;
@@ -176,11 +178,6 @@
             margin: 0 auto 12px;
             border: 2px dashed #94a3b8;
             object-fit: cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: #38bdf8;
         }
 
         .org-card h4 {
@@ -218,6 +215,40 @@
             transform: scale(1.05);
             box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
         }
+
+        /* NÚT GÓP Ý NỔI Ở GÓC MÀN HÌNH */
+        .floating-feedback-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: #0f172a;
+            padding: 10px 18px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 999;
+            transition: all 0.3s ease;
+            animation: bounceBtn 2.5s infinite;
+        }
+
+        .floating-feedback-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.7);
+            background: linear-gradient(135deg, #f43f5e, #38bdf8);
+            color: #fff;
+        }
+
+        @keyframes bounceBtn {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
     </style>
 </head>
 <body>
@@ -225,8 +256,8 @@
     <div class="container">
         <!-- Tiêu đề -->
         <header>
-            <h1>A1K61</h1>
-            <p>SIÊU CẤP BÁ KHÍ</p>
+            <h1>A1K61!!!!!!!!!!!!!!!!</h1>
+            <p>ĐANG CODE THÌ ĐỘT QUỴ</p>
         </header>
 
         <!-- Phần Giáo Viên Chủ Nhiệm ngay dưới tiêu đề -->
@@ -239,72 +270,59 @@
         </div>
 
         <!-- Ban Cán Sự Lớp -->
-        <h2 class="section-title">Quyền lực tối cao</h2>
+        <h2 class="section-title">Quyền lực tối cao😞</h2>
         <div class="grid-org">
             <div class="org-card" style="border-top-color: #f43f5e;">
                 <div class="role-icon">👑</div>
-                <h4>Nguyễn Thị Hoa Dung</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #f43f5e;">Lớp Trưởng</div>
             </div>
             <div class="org-card" style="border-top-color: #38bdf8;">
                 <div class="role-icon">📖</div>
-                <h4>Vi Thị Ngọc Diệp</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #38bdf8;">Lớp Phó Học Tập</div>
             </div>
             <div class="org-card" style="border-top-color: #34d399;">
                 <div class="role-icon">🧹</div>
-                <h4>Nguyễn Trọng Khôi</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #34d399;">Lớp Phó Lao Động</div>
             </div>
         </div>
 
-        <!-- Các Tổ Trưởng và Thủ Quỹ (Cấp dưới) -->
+        <!-- Các Tổ Trưởng -->
         <h2 class="section-title">Cấp dưới:))</h2>
         <div class="grid-org">
             <div class="org-card" style="border-top-color: #facc15;">
                 <div class="role-icon">⭐</div>
-                <h4>Vi Hải Phượng</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #facc15;">Tổ Trưởng Tổ 1</div>
             </div>
             <div class="org-card" style="border-top-color: #fb7185;">
                 <div class="role-icon">⭐</div>
-                <h4>Hoàng Phúc An</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #fb7185;">Tổ Trưởng Tổ 2</div>
             </div>
             <div class="org-card" style="border-top-color: #a78bfa;">
                 <div class="role-icon">⭐</div>
-                <h4>Hoàng Quỳnh Như</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #a78bfa;">Tổ Trưởng Tổ 3</div>
             </div>
             <div class="org-card" style="border-top-color: #38bdf8;">
                 <div class="role-icon">⭐</div>
-                <h4>Nguyễn Ngọc Bảo Minh</h4>
+                <h4>...</h4>
                 <div class="role-title" style="color: #38bdf8;">Tổ Trưởng Tổ 4</div>
-            </div>
-            <div class="org-card" style="border-top-color: #ec4899;">
-                <div class="role-icon">💰</div>
-                <h4>Vi Minh Tiến</h4>
-                <div class="role-title" style="color: #ec4899;">Thủ Quỹ</div>
             </div>
         </div>
 
-        <!-- Góc Đặc Biệt (Đã thêm nút Thành Viên) -->
-        <h2 class="section-title">Góc Flex</h2>
+        <!-- Các nút Kỷ niệm, Điểm nhấn, Thành tích -->
+        <h2 class="section-title">Góc Đặc Biệt ✨</h2>
         <div class="grid-org">
-            <!-- Nút Kỷ Niệm chuyển sang kiniem.html -->
-            <a href="kiniem.html" class="org-card" style="border-top-color: #ec4899; text-decoration: none; display: block;">
-                <div class="round-avatar">📸</div>
+            <!-- Đã gắn link chuyển hướng sang trang kỷ niệm cho ông -->
+            <a href="kiniem.html" class="org-card" style="border-top-color: #ec4899;">
+                <div class="round-avatar"></div>
                 <h4>Kỷ Niệm</h4>
-                <div class="role-title" style="color: #ec4899;">Kho ảnh lớp</div>
+                <div class="role-title" style="color: #ec4899;">Xem ngay đi</div>
             </a>
-
-            <!-- Nút Danh Sách Thành Viên chuyển sang danh_sach_lop.html -->
-            <a href="danh_sach_lop.html" class="org-card" style="border-top-color: #38bdf8; text-decoration: none; display: block;">
-                <div class="round-avatar">👥</div>
-                <h4>Thành Viên</h4>
-                <div class="role-title" style="color: #38bdf8;">Đội hình 45 mạng</div>
-            </a>
-
             <div class="org-card" style="border-top-color: #eab308;">
                 <div class="role-icon">🔥</div>
                 <h4>Điểm Nhấn</h4>
@@ -320,6 +338,11 @@
         <!-- Nút quay lại màn hình khóa -->
         <a href="CAILOPLON.html" class="back-btn">⬅ Quay lại màn hình mở đầu</a>
     </div>
+
+    <!-- Nút Góp Ý nổi ở góc màn hình -->
+    <a href="gop_y.html" class="floating-feedback-btn" title="Gửi ý kiến hoặc bóc phốt dev!">
+        📮 Góp Ý
+    </a>
 
 </body>
 </html>
