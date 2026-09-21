@@ -150,7 +150,7 @@
                 <textarea id="message" name="message" placeholder="Nhập nội dung vào đây..." required></textarea>
             </div>
 
-            <button type="submit" class="submit-btn" id="submitBtn">Vả vô mặt Dev</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Vả vào mặt Dev</button>
             <div id="status-message"></div>
         </form>
 
@@ -180,7 +180,7 @@
             }).then(response => {
                 if (response.ok) {
                     status.style.color = "#34d399";
-                    status.textContent = "Thành công!,Dev đã ăn vả";
+                    status.textContent = "Thành công!, Dev đã ăn vả";
                     form.reset();
                 } else {
                     response.json().then(data => {
@@ -198,7 +198,7 @@
                 status.style.color = "#f43f5e";
                 status.textContent = "Mạng kém vcl";
                 btn.disabled = false;
-                btn.textContent = "Gửi Ngay 🚀";
+                btn.textContent = "Vả vào mặt Dev";
             });
         }
         
