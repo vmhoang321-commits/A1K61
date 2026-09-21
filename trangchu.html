@@ -167,7 +167,7 @@
             margin-bottom: 12px;
         }
 
-        /* Avatar tròn để trống chuẩn kích thước cho nút Kỷ Niệm / Thành viên */
+        /* Avatar tròn để trống chuẩn kích thước cho nút đặc biệt */
         .org-card .round-avatar {
             width: 65px;
             height: 65px;
@@ -325,13 +325,6 @@
         <!-- Góc Đặc Biệt -->
         <h2 class="section-title">Góc Đặc Biệt</h2>
         <div class="grid-org">
-            <!-- Nút Kỷ Niệm chuyển sang kiniem.html -->
-            <a href="kiniem.html" class="org-card" style="border-top-color: #ec4899; text-decoration: none; display: block;">
-                <div class="round-avatar">📸</div>
-                <h4>Kỷ Niệm</h4>
-                <div class="role-title" style="color: #ec4899;">Kho ảnh lớp</div>
-            </a>
-
             <!-- Nút Danh Sách Thành Viên chuyển sang danh_sach_lop.html -->
             <a href="danh_sach_lop.html" class="org-card" style="border-top-color: #38bdf8; text-decoration: none; display: block;">
                 <div class="round-avatar">👥</div>
@@ -339,11 +332,13 @@
                 <div class="role-title" style="color: #38bdf8;">Đội hình 45 mạng</div>
             </a>
 
-            <div class="org-card" style="border-top-color: #eab308;">
-                <div class="role-icon">🔥</div>
+            <!-- Nút Điểm Nhấn (thay thế cho nút kỷ niệm cũ, trỏ sang diemnhan.html) -->
+            <a href="diemnhan.html" class="org-card" style="border-top-color: #eab308; text-decoration: none; display: block;">
+                <div class="round-avatar">🔥</div>
                 <h4>Điểm Nhấn</h4>
                 <div class="role-title" style="color: #eab308;">Nói chung là bá khí</div>
-            </div>
+            </a>
+
             <div class="org-card" style="border-top-color: #10b981;">
                 <div class="role-icon">🏆</div>
                 <h4>Thành Tích</h4>
