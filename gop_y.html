@@ -104,6 +104,13 @@
             transform: scale(1.02);
         }
 
+        .submit-btn:disabled {
+            background: #475569;
+            color: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         #status-message {
             text-align: center;
             margin-top: 15px;
@@ -158,16 +165,60 @@
     </div>
 
     <script>
-        // Xử lý hiệu ứng gửi form mượt mà không bị chuyển trang đột ngột
         const form = document.getElementById("feedbackForm");
         
-        async function handleSubmit(event) {
-            event.preventDefault();
+        // Kiểm tra số lần gửi trong ngày
+        function checkDailyLimit() {
+            const today = new Date().toDateString();
+            let savedData = JSON.parse(localStorage.getItem('feedback_limit')) || { date: today, count: 0 };
+            
+            if (savedData.date !== today) {
+                savedData = { date: today, count: 0 };
+                localStorage.setItem('feedback_limit', JSON.stringify(savedData));
+            }
+            
+            return savedData.count;
+        }
+
+        // Tăng số lần gửi lên 1
+        function incrementDailyCount() {
+            const today = new Date().toDateString();
+            let savedData = JSON.parse(localStorage.getItem('feedback_limit')) || { date: today, count: 0 };
+            savedData.count += 1;
+            localStorage.setItem('feedback_limit', JSON.stringify(savedData));
+        }
+
+        // Check ngay khi vừa load trang
+        window.addEventListener('DOMContentLoaded', () => {
+            const count = checkDailyLimit();
             const status = document.getElementById("status-message");
             const btn = document.getElementById("submitBtn");
             
+            if (count >= 5) {
+                btn.disabled = true;
+                btn.textContent = "Hết lượt góp ý hôm nay 🛑";
+                status.style.color = "#f43f5e";
+                status.textContent = "Ông đã vả dev đủ 5 lần trong ngày rồi, mai quay lại nhé!";
+            }
+        });
+        
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const currentCount = checkDailyLimit();
+            const status = document.getElementById("status-message");
+            const btn = document.getElementById("submitBtn");
+
+            if (currentCount >= 5) {
+                btn.disabled = true;
+                btn.textContent = "Hết lượt góp ý hôm nay 🛑";
+                status.style.color = "#f43f5e";
+                status.textContent = "Đã quá hạn mức 5 lần/ngày!";
+                return;
+            }
+            
             btn.disabled = true;
-            btn.textContent = "Chờ xíu";
+            btn.textContent = "Chờ xíu...";
             
             const data = new FormData(event.target);
             
@@ -179,9 +230,20 @@
                 }
             }).then(response => {
                 if (response.ok) {
+                    incrementDailyCount();
+                    const newCount = checkDailyLimit();
+                    
                     status.style.color = "#34d399";
-                    status.textContent = "Thành công!, Dev đã ăn vả";
+                    status.textContent = `Thành công! Dev đã ăn vả (Còn ${5 - newCount} lượt hôm nay)`;
                     form.reset();
+                    
+                    if (newCount >= 5) {
+                        btn.disabled = true;
+                        btn.textContent = "Hết lượt góp ý hôm nay 🛑";
+                    } else {
+                        btn.disabled = false;
+                        btn.textContent = "Vả vào mặt Dev";
+                    }
                 } else {
                     response.json().then(data => {
                         status.style.color = "#f43f5e";
@@ -191,9 +253,9 @@
                             status.textContent = "Lỗi...";
                         }
                     })
+                    btn.disabled = false;
+                    btn.textContent = "Vả vào mặt Dev";
                 }
-                btn.disabled = false;
-                btn.textContent = "Vả vào mặt Dev";
             }).catch(error => {
                 status.style.color = "#f43f5e";
                 status.textContent = "Mạng kém vcl";
