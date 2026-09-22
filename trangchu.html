@@ -141,7 +141,7 @@
             border-top: 5px solid #38bdf8;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-            overflow: hidden;
+            overflow: visible; /* Cho phép bảng chú thích tràn ra ngoài viền thẻ nếu cần */
         }
 
         .org-card::before {
@@ -151,6 +151,7 @@
             background: radial-gradient(circle at top, rgba(56, 189, 248, 0.1), transparent 70%);
             opacity: 0;
             transition: opacity 0.3s;
+            pointer-events: none;
         }
 
         .org-card:hover::before {
@@ -166,6 +167,52 @@
             font-size: 2.5rem;
             margin-bottom: 12px;
         }
+
+        /* --- PHẦN FIX TRIỆT ĐỂ CHO THỦ QUỸ --- */
+        .org-card.treasurer-card {
+            position: relative;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 10;
+        }
+
+        .treasurer-tooltip {
+            position: absolute;
+            bottom: 115%;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #0f172a;
+            border: 2px solid #ec4899;
+            color: #f8fafc;
+            padding: 12px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease-in-out;
+            z-index: 9999;
+        }
+
+        .treasurer-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 6px;
+            border-style: solid;
+            border-color: #ec4899 transparent transparent transparent;
+        }
+
+        /* Khi JS thêm class này vào thì bắt buộc phải hiện lên */
+        .org-card.treasurer-card.active-tooltip .treasurer-tooltip {
+            opacity: 1 !important;
+            visibility: visible !important;
+            transform: translateX(-50%) translateY(0) !important;
+        }
+        /* ------------------------------------- */
 
         /* Avatar tròn để trống chuẩn kích thước cho nút đặc biệt */
         .org-card .round-avatar {
@@ -326,7 +373,12 @@
                 <h4>Nguyễn Ngọc Bảo Minh</h4>
                 <div class="role-title" style="color: #38bdf8;">Tổ Trưởng Tổ 4</div>
             </div>
-            <div class="org-card" style="border-top-color: #ec4899;">
+            
+            <!-- THỦ QUỸ -->
+            <div class="org-card treasurer-card" style="border-top-color: #ec4899;">
+                <div class="treasurer-tooltip">
+                    Số tiền đã đớp được: <strong>...</strong>
+                </div>
                 <div class="role-icon">💰</div>
                 <h4>Vi Minh Tiến</h4>
                 <div class="role-title" style="color: #ec4899;">Thủ Quỹ</div>
@@ -366,5 +418,24 @@
         📮 Góp Ý
     </a>
 
+    <!-- JavaScript Xử Lý Sự Kiện Bấm / Chạm Chuẩn Xác -->
+    <script>
+        const treasurerCard = document.querySelector('.treasurer-card');
+
+        if (treasurerCard) {
+            treasurerCard.addEventListener('click', function(e) {
+                // Bật/tắt class active-tooltip để ép hiện/ẩn
+                this.classList.toggle('active-tooltip');
+                e.stopPropagation();
+            });
+
+            // Click/chạm ra ngoài thì ẩn bảng chú thích đi
+            document.addEventListener('click', function(e) {
+                if (!treasurerCard.contains(e.target)) {
+                    treasurerCard.classList.remove('active-tooltip');
+                }
+            });
+        }
+    </script>
 </body>
 </html>
