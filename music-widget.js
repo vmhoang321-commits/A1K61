@@ -1,0 +1,348 @@
+// music-widget.js - Tự động tạo giao diện, CSS và xử lý nhạc cho toàn bộ các trang
+document.addEventListener("DOMContentLoaded", function() {
+    // 1. Tự động chèn CSS cho widget nhạc vào trang
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .music-widget {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 9999;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .music-toggle-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: #0f172a;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+            transition: all 0.3s ease;
+        }
+        .music-toggle-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.7);
+        }
+        .music-widget.playing .vinyl-icon {
+            animation: spinVinyl 3s linear infinite;
+        }
+        @keyframes spinVinyl {
+            100% { transform: rotate(360deg); }
+        }
+        .music-panel {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 280px;
+            background: #1e293b;
+            border: 2px solid #38bdf8;
+            border-radius: 20px;
+            padding: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            backdrop-filter: blur(10px);
+        }
+        .music-widget.active .music-panel {
+            display: flex;
+            animation: slideUpPanel 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .music-widget.active .music-toggle-btn {
+            display: none;
+        }
+        @keyframes slideUpPanel {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .music-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 8px;
+        }
+        .music-header h4 {
+            color: #38bdf8;
+            font-size: 1rem;
+            margin: 0;
+        }
+        .close-panel-btn {
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .close-panel-btn:hover {
+            color: #f43f5e;
+        }
+        .now-playing {
+            background: #0f172a;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid #334155;
+        }
+        .now-playing p {
+            font-size: 0.85rem;
+            color: #f472b6;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            margin: 0;
+        }
+        .progress-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #334155;
+            border-radius: 3px;
+            outline: none;
+            appearance: none;
+            cursor: pointer;
+        }
+        .progress-bar::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #38bdf8;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .time-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .ctrl-btn {
+            background: #334155;
+            border: none;
+            color: #f8fafc;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .ctrl-btn:hover {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+        .play-pause-btn {
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            color: #0f172a;
+            font-weight: bold;
+        }
+        .playlist {
+            max-height: 120px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding-right: 4px;
+        }
+        .playlist::-webkit-scrollbar { width: 4px; }
+        .playlist::-webkit-scrollbar-thumb { background: #475569; border-radius: 2px; }
+        .playlist-item {
+            background: #0f172a;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            cursor: pointer;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: all 0.2s;
+        }
+        .playlist-item:hover { color: #fff; border-color: #818cf8; }
+        .playlist-item.active {
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            font-weight: bold;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // 2. Tự động chèn khung HTML của widget vào cuối trang
+    const widgetDiv = document.createElement('div');
+    widgetDiv.id = 'music-widget';
+    widgetDiv.innerHTML = `
+        <button class="music-toggle-btn" id="musicToggleBtn" title="Chill">
+            <span class="vinyl-icon">🎵</span>
+        </button>
+        <div class="music-panel">
+            <div class="music-header">
+                <h4>🎧 Chill</h4>
+                <button class="close-panel-btn" id="closePanelBtn">×</button>
+            </div>
+            <div class="now-playing">
+                <p id="current-song-title">Đang chọn bài...</p>
+            </div>
+            <div class="progress-container">
+                <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100" step="0.1">
+                <div class="time-info">
+                    <span id="currentTime">00:00</span>
+                    <span id="durationTime">00:00</span>
+                </div>
+            </div>
+            <audio id="audio-player"></audio>
+            <div class="music-controls">
+                <button class="ctrl-btn" id="prevBtn" title="Bài trước">⏮</button>
+                <button class="ctrl-btn play-pause-btn" id="playPauseBtn" title="Phát/Dừng">▶</button>
+                <button class="ctrl-btn" id="nextBtn" title="Bài tiếp">⏭</button>
+            </div>
+            <div class="playlist" id="playlistContainer"></div>
+        </div>
+    `;
+    document.body.appendChild(widgetDiv);
+
+    // 3. Logic điều khiển phát nhạc, lưu trạng thái, đổi bài
+    const musicToggleBtn = document.getElementById('musicToggleBtn');
+    const closePanelBtn = document.getElementById('closePanelBtn');
+    const audioPlayer = document.getElementById('audio-player');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentSongTitle = document.getElementById('current-song-title');
+    const playlistContainer = document.getElementById('playlistContainer');
+    const progressBar = document.getElementById('progressBar');
+    const currentTimeEl = document.getElementById('currentTime');
+    const durationTimeEl = document.getElementById('durationTime');
+
+    // Danh sách bài hát (bạn muốn sửa danh sách hay thêm bớt bài chỉ cần sửa ở đây là tất cả các trang nhận luôn)
+    const playlist = [
+        { title: "Tim Em - Hngle", src: "music/Tim Em.mp3" },
+        { title: "Vet Thuong - fishy", src: "music/Vet thuong.mp3" }
+    ];
+
+    let currentTrackIndex = parseInt(sessionStorage.getItem('music_index')) || 0;
+    let savedTime = parseFloat(sessionStorage.getItem('music_time')) || 0;
+    let isPlaying = sessionStorage.getItem('music_playing') === 'true';
+    audioPlayer.volume = 0.4;
+
+    musicToggleBtn.addEventListener('click', () => widgetDiv.classList.add('active'));
+    closePanelBtn.addEventListener('click', () => widgetDiv.classList.remove('active'));
+
+    function renderPlaylist() {
+        playlistContainer.innerHTML = '';
+        playlist.forEach((song, index) => {
+            const item = document.createElement('div');
+            item.className = `playlist-item ${index === currentTrackIndex ? 'active' : ''}`;
+            item.innerText = `${index + 1}. ${song.title}`;
+            item.addEventListener('click', () => loadTrack(index, 0, true));
+            playlistContainer.appendChild(item);
+        });
+    }
+
+    function loadTrack(index, startAt = 0, autoPlay = false) {
+        currentTrackIndex = index;
+        audioPlayer.src = playlist[index].src;
+        currentSongTitle.innerText = playlist[index].title;
+        
+        audioPlayer.addEventListener('loadedmetadata', function() {
+            audioPlayer.currentTime = startAt;
+            if (autoPlay) playAudio();
+        }, { once: true });
+
+        renderPlaylist();
+        sessionStorage.setItem('music_index', currentTrackIndex);
+    }
+
+    function playAudio() {
+        audioPlayer.play().then(() => {
+            widgetDiv.classList.add('playing');
+            playPauseBtn.innerText = "⏸";
+            sessionStorage.setItem('music_playing', 'true');
+        }).catch(err => console.log("Chờ tương tác:", err));
+    }
+
+    function pauseAudio() {
+        audioPlayer.pause();
+        widgetDiv.classList.remove('playing');
+        playPauseBtn.innerText = "▶";
+        sessionStorage.setItem('music_playing', 'false');
+    }
+
+    playPauseBtn.addEventListener('click', () => {
+        if (audioPlayer.paused) playAudio();
+        else pauseAudio();
+    });
+
+    nextBtn.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex + 1) % playlist.length;
+        loadTrack(currentTrackIndex, 0, true);
+    });
+
+    prevBtn.addEventListener('click', () => {
+        currentTrackIndex = (currentTrackIndex - 1 + playlist.length) % playlist.length;
+        loadTrack(currentTrackIndex, 0, true);
+    });
+
+    audioPlayer.addEventListener('ended', () => nextBtn.click());
+
+    function formatTime(seconds) {
+        if (isNaN(seconds)) return "00:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins < 10 ? '0' : ''}${mins}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    audioPlayer.addEventListener('timeupdate', () => {
+        if (audioPlayer.duration) {
+            progressBar.value = (audioPlayer.currentTime / audioPlayer.duration) * 100;
+            currentTimeEl.innerText = formatTime(audioPlayer.currentTime);
+            if (!audioPlayer.paused) sessionStorage.setItem('music_time', audioPlayer.currentTime);
+        }
+    });
+
+    audioPlayer.addEventListener('loadedmetadata', () => {
+        durationTimeEl.innerText = formatTime(audioPlayer.duration);
+    });
+
+    progressBar.addEventListener('input', () => {
+        if (audioPlayer.duration) {
+            const seekTime = (progressBar.value / 100) * audioPlayer.duration;
+            audioPlayer.currentTime = seekTime;
+            sessionStorage.setItem('music_time', seekTime);
+        }
+    });
+
+    loadTrack(currentTrackIndex, savedTime, isPlaying);
+
+    let hasInteracted = false;
+    function triggerAutoplay() {
+        if (!hasInteracted && isPlaying) {
+            hasInteracted = true;
+            playAudio();
+            window.removeEventListener('click', triggerAutoplay);
+            window.removeEventListener('keydown', triggerAutoplay);
+        }
+    }
+    window.addEventListener('click', triggerAutoplay);
+    window.addEventListener('keydown', triggerAutoplay);
+});
